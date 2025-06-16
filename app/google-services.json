@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "179808314771",
+    "project_id": "chairbnb-1300c",
+    "storage_bucket": "chairbnb-1300c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179808314771:android:47174318bf36d490113466",
+        "android_client_info": {
+          "package_name": "com.example.chairbnb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCLSOtqB9PkCk__YYDhWkM_WeuoF35XhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

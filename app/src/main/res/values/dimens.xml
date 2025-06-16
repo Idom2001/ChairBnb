@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_width">200dp</dimen>
+    <dimen name="registerBtn_width">250dp</dimen>
+    <dimen name="button_margin">10dp</dimen>
+    <dimen name="signIn_width">240dp</dimen>
+    <dimen name="signUp_width">230dp</dimen>
+    <dimen name="logIn_width">220dp</dimen>
+</resources>
