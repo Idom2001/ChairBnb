@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Chairbnb</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_out">Sign out</string>
+    <string name="log_in">Log In</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="to_reserve_a_study_room_in_the_library">To reserve a study room in the library</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full name</string>
+    <string name="restore_password">Restore Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="room_name">Room Name</string>
+    <string name="room_description">Room Description</string>
+</resources>
