@@ -1,4 +1,4 @@
-package com.example.chairbnb.Classes.Displaments
+package com.example.chairbnb.classes.displaments
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chairbnb.Classes.BookinRooms.RoomWithAvailableTime
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
 import com.example.chairbnb.R
+import com.example.chairbnb.classes.bookingRooms.RoomWithAvailableTime
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 
 class RoomAdapter(
     private val rooms: List<RoomWithAvailableTime>,

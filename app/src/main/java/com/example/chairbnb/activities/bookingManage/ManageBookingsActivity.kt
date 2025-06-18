@@ -1,23 +1,21 @@
-package com.example.chairbnb.Activities.BookingManage
-
+package com.example.chairbnb.activities.bookingManage
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chairbnb.Classes.BookinRooms.Booking
-import com.example.chairbnb.Classes.BookinRooms.Room
-import com.example.chairbnb.Classes.BookinRooms.RoomWithAvailableTime
-import com.example.chairbnb.Classes.Displaments.RoomAdapter
-import com.example.chairbnb.Objects.DataBase.AuthManager
-import com.example.chairbnb.Objects.DataBase.BookingStoreManager
-import com.example.chairbnb.Objects.DataBase.FireStoreManager
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
 import com.example.chairbnb.R
+import com.example.chairbnb.classes.bookingRooms.Booking
+import com.example.chairbnb.classes.bookingRooms.Room
+import com.example.chairbnb.classes.bookingRooms.RoomWithAvailableTime
+import com.example.chairbnb.classes.displaments.RoomAdapter
+import com.example.chairbnb.objects.dataBase.AuthManager
+import com.example.chairbnb.objects.dataBase.BookingStoreManager
+import com.example.chairbnb.objects.dataBase.FireStoreManager
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
 
 class ManageBookingsActivity : AppCompatActivity() {
@@ -54,6 +52,7 @@ class ManageBookingsActivity : AppCompatActivity() {
         roomRecyclerView.adapter = adapter
     }
 
+
     private fun loadRoomsAndBookings() {
         FireStoreManager.getRooms(onSuccess = { rooms ->
             println("Rooms loaded: ${rooms.size}")
@@ -78,11 +77,11 @@ class ManageBookingsActivity : AppCompatActivity() {
                                 suggestedDate = booking.date
                             )
                         )
-                    } else println("Room not found for booking with roomId: ${booking.roomId}")
+                    }
                 }
                 if (displayedRooms.isEmpty()) {
                     probTextView.visibility = View.VISIBLE
-                    probTextView.text = "No active bookings"
+                    probTextView.text = getString(R.string.no_active)
                 } else {
                     probTextView.visibility = View.GONE
                 }
@@ -91,12 +90,8 @@ class ManageBookingsActivity : AppCompatActivity() {
                     .forEach { expiredBooking ->
                         BookingStoreManager.cancelBooking(expiredBooking, {}, {})
                     }
-            }, onFailure = {
-                Toast.makeText(this, "Failed to load bookings", Toast.LENGTH_SHORT).show()
-            })
-        }, onFailure = {
-            Toast.makeText(this, "Failed to load rooms", Toast.LENGTH_SHORT).show()
-        })
+            }, onFailure = {})
+        }, onFailure = {})
     }
 
     private fun onRoomClicked(roomWithAvailableTime: RoomWithAvailableTime) {
@@ -106,7 +101,6 @@ class ManageBookingsActivity : AppCompatActivity() {
             bookingsList
         )
         if (booking == null) {
-            Toast.makeText(this, "Booking not found", Toast.LENGTH_SHORT).show()
             return
         }
         AlertDialog.Builder(this)
@@ -122,11 +116,7 @@ class ManageBookingsActivity : AppCompatActivity() {
                 BookingStoreManager.cancelBooking(booking, {
                     Toast.makeText(this, "Booking canceled", Toast.LENGTH_SHORT).show()
                     loadRoomsAndBookings()
-                }, { e ->
-                    Toast.makeText(this, "Failed to cancel: ${e.message}", Toast.LENGTH_SHORT)
-                        .show()
-                    Log.e("DEBUG", "Failed to cancel: ${e.message}")
-                })
+                }, {})
             }
             .setNegativeButton("No", null)
             .show()

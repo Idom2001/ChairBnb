@@ -1,17 +1,15 @@
-package com.example.chairbnb.Activities.BookingManage
-
+package com.example.chairbnb.activities.bookingManage
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.example.chairbnb.Classes.ClassHelper.DateManager
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
 import com.example.chairbnb.R
+import com.example.chairbnb.classes.classHelper.DateManager
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
 
 class ChooseDateActivity : AppCompatActivity() {
@@ -87,7 +85,6 @@ class ChooseDateActivity : AppCompatActivity() {
         val minute = timePicker.minute
         val selectedTime = TimeManager.formatTime(hour, minute)
         val selectedEquipments = getSelectedEquipments()
-        Log.d("ChooseDateActivity", "Selected Equipments: $selectedEquipments")
         val intent = Intent(this, BookRoomActivity::class.java)
         intent.putExtra("selectedDate", selectedDate)
         intent.putExtra("selectedTime", selectedTime)

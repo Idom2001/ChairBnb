@@ -1,4 +1,4 @@
-package com.example.chairbnb.Activities.Security
+package com.example.chairbnb.activities.security
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.chairbnb.Objects.DataBase.AuthManager
 import com.example.chairbnb.R
+import com.example.chairbnb.objects.dataBase.AuthManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 

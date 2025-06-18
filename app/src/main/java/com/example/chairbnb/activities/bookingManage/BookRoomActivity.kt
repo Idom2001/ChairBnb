@@ -1,4 +1,4 @@
-package com.example.chairbnb.Activities.BookingManage
+package com.example.chairbnb.activities.bookingManage
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,15 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chairbnb.Activities.MainActivity
-import com.example.chairbnb.Classes.BookinRooms.Room
-import com.example.chairbnb.Classes.ClassHelper.Constants
-import com.example.chairbnb.Classes.Displaments.RoomDisplayManagement
-import com.example.chairbnb.Objects.DataBase.AuthManager
-import com.example.chairbnb.Objects.DataBase.BookingStoreManager
-import com.example.chairbnb.Objects.DataBase.FireStoreManager
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
 import com.example.chairbnb.R
+import com.example.chairbnb.activities.MainActivity
+import com.example.chairbnb.classes.bookingRooms.Room
+import com.example.chairbnb.classes.classHelper.Constants
+import com.example.chairbnb.classes.displaments.RoomDisplayManagement
+import com.example.chairbnb.objects.dataBase.AuthManager
+import com.example.chairbnb.objects.dataBase.BookingStoreManager
+import com.example.chairbnb.objects.dataBase.FireStoreManager
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
 
 class BookRoomActivity : AppCompatActivity() {
@@ -38,7 +38,6 @@ class BookRoomActivity : AppCompatActivity() {
         selectedDate = intent.getStringExtra("selectedDate") ?: ""
         selectedTime = intent.getStringExtra("selectedTime") ?: ""
         selectedEquipments = intent.getStringArrayListExtra("selectedEquipments") ?: emptyList()
-        Log.d("BookRoomActivity", "Received Equipments: $selectedEquipments")
         roomRecyclerView = findViewById(R.id.roomsRecyclerView)
         probTextView = findViewById(R.id.ProbTextView)
     }
@@ -47,8 +46,6 @@ class BookRoomActivity : AppCompatActivity() {
         FireStoreManager.getRooms(
             onSuccess = { existingRooms ->
                 if (existingRooms.isNotEmpty()) {
-                    Toast.makeText(this, "Rooms already exist, loading...", Toast.LENGTH_SHORT)
-                        .show()
                     rooms = existingRooms
                     displayRooms()
                 } else {
@@ -58,32 +55,16 @@ class BookRoomActivity : AppCompatActivity() {
                         FireStoreManager.uploadInitialRoomsData(
                             jsonString,
                             onSuccess = {
-                                Toast.makeText(
-                                    this,
-                                    "Rooms uploaded successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                                 loadRoomsFromFireStore()
                             },
-                            onFailure = { e ->
-                                Toast.makeText(
-                                    this,
-                                    "Upload failed: ${e.message}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                Log.d("upload", "Upload failed: ${e.message}")
-                            }
+                            onFailure = {}
                         )
                     } catch (e: Exception) {
-                        Toast.makeText(this, "Error reading JSON: ${e.message}", Toast.LENGTH_LONG)
-                            .show()
+                        Log.e("uploadRoomsFirstTime", "Error reading JSON", e)
                     }
                 }
             },
-            onFailure = { e ->
-                Toast.makeText(this, "Failed to check rooms: ${e.message}", Toast.LENGTH_LONG)
-                    .show()
-            }
+            onFailure = {}
         )
     }
 
@@ -93,9 +74,7 @@ class BookRoomActivity : AppCompatActivity() {
                 rooms = fetchedRooms
                 displayRooms()
             },
-            onFailure = { e ->
-                Toast.makeText(this, "Failed to load rooms: ${e.message}", Toast.LENGTH_LONG).show()
-            }
+            onFailure = {}
         )
     }
 

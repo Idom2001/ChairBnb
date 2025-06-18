@@ -1,20 +1,19 @@
-package com.example.chairbnb.Activities
+package com.example.chairbnb.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.chairbnb.Activities.BookingManage.ChooseDateActivity
-import com.example.chairbnb.Activities.BookingManage.ManageBookingsActivity
-import com.example.chairbnb.Activities.Security.SignInActivity
-import com.example.chairbnb.Objects.DataBase.AuthManager
-import com.example.chairbnb.Objects.DataBase.BookingStoreManager
-import com.example.chairbnb.Objects.DataBase.FireStoreManager
 import com.example.chairbnb.R
+import com.example.chairbnb.activities.bookingManage.ChooseDateActivity
+import com.example.chairbnb.activities.bookingManage.ManageBookingsActivity
+import com.example.chairbnb.activities.security.SignInActivity
+import com.example.chairbnb.objects.dataBase.AuthManager
+import com.example.chairbnb.objects.dataBase.BookingStoreManager
+import com.example.chairbnb.objects.dataBase.FireStoreManager
 import com.google.android.material.textview.MaterialTextView
 
 class MainActivity : AppCompatActivity() {
@@ -45,34 +44,26 @@ class MainActivity : AppCompatActivity() {
         val userUid = AuthManager.currentUserUid()
         if (user != null && user.isEmailVerified) {
             userIn = true
-            signBtn.text = "Sign out"
+            signBtn.text = getString(R.string.sign_out)
             signBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_red))
             userUid?.let {
                 FireStoreManager.getUserFullName(
                     it, onSuccess = { fullName ->
-                        userNameText.text = "Hello $fullName"
+                        userNameText.text = getString(R.string.hello_user, fullName)
                     },
-                    onFailure = { userNameText.text = "Hello User" })
+                    onFailure = { userNameText.text = getString(R.string.hello_u) })
             }
         } else {
             userIn = false
             signBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.green))
-            signBtn.text = "Sign In"
-            userNameText.text = "Hello Guest"
+            signBtn.text = getString(R.string.sign_in)
+            userNameText.text = getString(R.string.hello_g)
             AuthManager.signOut()//sign out if the user is not modified
         }
     }
 
     private fun findViews() {
-        BookingStoreManager.deleteExpiredBookings(
-            onSuccess = {
-                Log.d("Firestore", "Expired bookings deleted")
-            },
-            onFailure = {
-                Log.e("Firestore", "Failed to delete expired bookings: ${it.message}")
-            }
-        )
-
+        BookingStoreManager.deleteExpiredBookings({}, {})
         orderRoomBtn = findViewById(R.id.order_btn)
         manageBtn = findViewById(R.id.manage_btn)
         signBtn = findViewById(R.id.sign_btn)

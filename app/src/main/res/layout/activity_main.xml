@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Activities.MainActivity"
+    tools:context=".activities.MainActivity"
     tools:ignore="HardcodedText">
 
     <androidx.appcompat.widget.AppCompatImageView

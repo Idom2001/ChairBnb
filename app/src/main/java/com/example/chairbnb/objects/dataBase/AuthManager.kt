@@ -1,10 +1,10 @@
-package com.example.chairbnb.Objects.DataBase
+package com.example.chairbnb.objects.dataBase
 
 import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
-import com.example.chairbnb.Activities.MainActivity
-import com.example.chairbnb.Activities.Security.SignInActivity
+import com.example.chairbnb.activities.MainActivity
+import com.example.chairbnb.activities.security.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
@@ -30,11 +30,6 @@ object AuthManager {
                         ).show()
                         auth.signOut()
                     }
-                } else {
-                    Toast.makeText(
-                        activity, "Authentication failed: ${task.exception?.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             }
     }

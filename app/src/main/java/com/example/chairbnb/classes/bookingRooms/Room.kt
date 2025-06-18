@@ -1,6 +1,6 @@
-package com.example.chairbnb.Classes.BookinRooms
+package com.example.chairbnb.classes.bookingRooms
 
-import com.example.chairbnb.Classes.ClassHelper.Constants
+import com.example.chairbnb.classes.classHelper.Constants
 
 data class Room(
     val id: String,
@@ -17,8 +17,7 @@ data class Room(
         for ((start, end) in dailyHours) {
             if (startTime >= start && startTime < end) {
                 return String.format(
-                    "%.2f",
-                    minOf(Constants.LibTime.MAX_TIME_ROOM_DOUBLE, end - startTime)
+                    "%.2f", minOf(Constants.LibTime.MAX_TIME_ROOM_DOUBLE, end - startTime)
                 ).toDouble()
             }
         }
