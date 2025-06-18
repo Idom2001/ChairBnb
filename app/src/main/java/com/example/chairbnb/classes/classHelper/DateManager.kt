@@ -1,4 +1,4 @@
-package com.example.chairbnb.Classes.ClassHelper
+package com.example.chairbnb.classes.classHelper
 
 import android.app.DatePickerDialog
 import android.content.Context

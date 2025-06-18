@@ -1,4 +1,4 @@
-package com.example.chairbnb.Classes.BookinRooms
+package com.example.chairbnb.classes.bookingRooms
 
 data class RoomWithAvailableTime(
     val room: Room, val availableHoursFromNow: Double,

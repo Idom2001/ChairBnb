@@ -1,8 +1,7 @@
-package com.example.chairbnb.Objects.DataBase
+package com.example.chairbnb.objects.dataBase
 
-import android.util.Log
-import com.example.chairbnb.Classes.BookinRooms.Booking
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
+import com.example.chairbnb.classes.bookingRooms.Booking
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.firebase.firestore.FirebaseFirestore
 
 object BookingStoreManager {
@@ -39,7 +38,6 @@ object BookingStoreManager {
         onSuccess: (List<Booking>) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        val todayStr = TimeManager.getTodayDateString()
         firestore.collection("bookings")
             .whereEqualTo("userId", userId)
             .get()
@@ -55,7 +53,6 @@ object BookingStoreManager {
                             hoursCount = (doc.getLong("hoursCount") ?: 0L).toDouble()
                         )
                     } catch (e: Exception) {
-                        Log.e("BookingManager", "Error parsing booking: ${e.message}")
                         null
                     }
                 }.filterNot { isBookingExpired(it) }

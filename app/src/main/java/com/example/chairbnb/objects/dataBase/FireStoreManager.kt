@@ -1,11 +1,14 @@
-package com.example.chairbnb.Objects.DataBase
+package com.example.chairbnb.objects.dataBase
 
-import com.example.chairbnb.Classes.BookinRooms.Room
+import android.annotation.SuppressLint
+import com.example.chairbnb.classes.bookingRooms.Room
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 object FireStoreManager {
+    @SuppressLint("StaticFieldLeak")
     private val firestore = FirebaseFirestore.getInstance()
 
     fun saveUserData(
@@ -28,7 +31,11 @@ object FireStoreManager {
             .addOnFailureListener { onFailure() }
     }
 
-    fun saveRooms(rooms: List<Room>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    private fun saveRooms(
+        rooms: List<Room>,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
         val batch = firestore.batch()
         val collectionRef = firestore.collection("rooms")
         rooms.forEach { room ->
@@ -42,6 +49,8 @@ object FireStoreManager {
     fun getRooms(onSuccess: (List<Room>) -> Unit, onFailure: (Exception) -> Unit) {
         firestore.collection("rooms").get()
             .addOnSuccessListener { result ->
+                val batch = firestore.batch()
+                val collectionRef = firestore.collection("rooms")
                 val rooms = result.documents.mapNotNull { doc ->
                     try {
                         val data = doc.data ?: return@mapNotNull null
@@ -62,7 +71,10 @@ object FireStoreManager {
                                 if (start != null && end != null) Pair(start, end) else null
                             }
                         }
-
+                        if (!TimeManager.hasFutureOrTodayDates(availableDates)) {
+                            batch.delete(collectionRef.document(id))
+                            return@mapNotNull null
+                        }
                         Room(
                             id,
                             name,
@@ -76,12 +88,15 @@ object FireStoreManager {
                         null
                     }
                 }
-                onSuccess(rooms)
+                batch.commit()
+                    .addOnSuccessListener {
+                        onSuccess(rooms)
+                    }.addOnFailureListener { onFailure(it) }
             }
             .addOnFailureListener { onFailure(it) }
     }
 
-    fun parseRoomsFromJson(jsonString: String): List<Room> {
+    private fun parseRoomsFromJson(jsonString: String): List<Room> {
         val gson = Gson()
 
         data class RawRoom(

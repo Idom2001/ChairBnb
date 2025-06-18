@@ -2,6 +2,11 @@
     <string name="app_name">Chairbnb</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
+    <string name="hello_g">Hello Guest</string>
+    <string name="hello_u">Hello User</string>
+    <string name="hello">Hello</string>
+    <string name="hello_user">Hello %1$s</string>
+    <string name="no_active">No active bookings</string>
     <string name="log_in">Log In</string>
     <string name="password">Password</string>
     <string name="email">Email</string>

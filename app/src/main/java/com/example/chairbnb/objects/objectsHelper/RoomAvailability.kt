@@ -1,6 +1,6 @@
-package com.example.chairbnb.Objects.ObjectsHelper
+package com.example.chairbnb.objects.objectsHelper
 
-import com.example.chairbnb.Classes.BookinRooms.Room
+import com.example.chairbnb.classes.bookingRooms.Room
 import java.text.SimpleDateFormat
 import java.util.Locale
 

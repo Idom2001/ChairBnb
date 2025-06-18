@@ -1,14 +1,14 @@
-package com.example.chairbnb.Classes.Displaments
+package com.example.chairbnb.classes.displaments
 
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chairbnb.Classes.BookinRooms.Room
-import com.example.chairbnb.Classes.BookinRooms.RoomWithAvailableTime
-import com.example.chairbnb.Classes.ClassHelper.Constants
-import com.example.chairbnb.Objects.ObjectsHelper.RoomAvailability
-import com.example.chairbnb.Objects.ObjectsHelper.TimeManager
+import com.example.chairbnb.classes.bookingRooms.Room
+import com.example.chairbnb.classes.bookingRooms.RoomWithAvailableTime
+import com.example.chairbnb.classes.classHelper.Constants
+import com.example.chairbnb.objects.objectsHelper.RoomAvailability
+import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
 
 class RoomDisplayManagement(

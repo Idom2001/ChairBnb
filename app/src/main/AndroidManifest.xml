@@ -14,25 +14,25 @@
         android:theme="@style/Theme.Chairbnb"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.BookingManage.ManageBookingsActivity"
+            android:name=".activities.bookingManage.ManageBookingsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.BookingManage.ChooseDateActivity"
+            android:name=".activities.bookingManage.ChooseDateActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.BookingManage.BookRoomActivity"
+            android:name=".activities.bookingManage.BookRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.Security.ResetPasswordActivity"
+            android:name=".activities.security.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.Security.SignUpActivity"
+            android:name=".activities.security.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.Security.SignInActivity"
+            android:name=".activities.security.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

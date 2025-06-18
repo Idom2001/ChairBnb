@@ -1,6 +1,6 @@
-package com.example.chairbnb.Objects.ObjectsHelper
+package com.example.chairbnb.objects.objectsHelper
 
-import com.example.chairbnb.Classes.ClassHelper.Constants
+import com.example.chairbnb.classes.classHelper.Constants
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -12,7 +12,6 @@ import java.util.Locale
 
 object TimeManager {
     private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     private fun shouldMoveToNextDay(
         selectedDate: String,
         selectedHour: Int,
@@ -88,5 +87,15 @@ object TimeManager {
         val endMinute = totalMinutes % Constants.Hour.MINUETS_IN_HOUR
         return Pair(endHour % Constants.Hour.HOURS_IN_DAY, endMinute)
     }
-
+    fun hasFutureOrTodayDates(dates: List<String>): Boolean {
+        val today = LocalDate.now()
+        return dates.any { dateStr ->
+            try {
+                val date = LocalDate.parse(dateStr, dateFormatter)
+                !date.isBefore(today)  // date >= today its good
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
 }
