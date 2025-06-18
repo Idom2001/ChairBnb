@@ -1,4 +1,4 @@
-📚 ChairBnB
+# 📚 ChairBnB
 
 ChairBnB is an Android application designed for managing and booking study rooms in libraries.
 It provides real-time availability, advanced filtering by equipment, and a clean intuitive interface
