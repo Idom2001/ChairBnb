@@ -4,7 +4,7 @@ ChairBnB is an Android application designed for managing and booking study rooms
 It provides real-time availability, advanced filtering by equipment, and a clean intuitive interface
 for students and visitors.
 
-✨ Features
+# ✨ Features
 
 - 🔐Firebase Authentication – Sign-in and registration
 - 📆 View room availability by selected date
@@ -14,14 +14,14 @@ for students and visitors.
 - ✅ Book or cancel bookings with confirmation dialog
 - 🗂️ "My Bookings" screen – view all future bookings and cancel if you would like
 
-🛠️ Technologies Used
+# 🛠️ Technologies Used
 
 - Kotlin– Primary language
 - Firebase FireStore – Data storage for rooms, bookings, and users
 - Firebase Authentication– User login & registration
 - Material Design – Modern UI styling
 
-📱 How to Use the App
+# 📱 How to Use the App
 
 1. Register or Login
    Launch the app and either register a new account or log in.
@@ -39,12 +39,13 @@ for students and visitors.
     - Max participants
     - Included equipment (computer, whiteboard, etc.)
 
-5. Book a Room**
+5. Book a Room
    Tap an available room to book—supported duration up to 5 hours.
 
 6. Manage Your Bookings
    Click Manage Your Bookings to see upcoming reservations.  
    Tap any booking to cancel, a confirmation dialog will appear.
 
-Developers
+# Developers
+
 🧑‍💻 Ido Muallem
