@@ -31,6 +31,10 @@ object AuthManager {
                         auth.signOut()
                     }
                 }
+                else Toast.makeText(
+                    activity, "Incorrect password, please try again!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

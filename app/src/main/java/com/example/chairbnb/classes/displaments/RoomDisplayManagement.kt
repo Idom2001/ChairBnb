@@ -21,6 +21,7 @@ class RoomDisplayManagement(
     private val probTextView: MaterialTextView,
     private val onRoomSelected: (Room, actualStartHour: String, Double) -> Unit
 ) {
+    private var adapter: RoomAdapter? = null
     private val selectedHour: Double
     private val selectedMinutes: Double
     private val selectedTimeAsDouble: Double
@@ -159,13 +160,22 @@ class RoomDisplayManagement(
     }
 
     private fun displayRoomList(rooms: List<RoomWithAvailableTime>) {
-        roomRecyclerView.layoutManager = LinearLayoutManager(context)
-        roomRecyclerView.adapter = RoomAdapter(rooms) { roomWithTime ->
-            onRoomSelected(
-                roomWithTime.room,
-                roomWithTime.suggestedStartTime.toString(),
-                roomWithTime.availableHoursFromNow
+        if (adapter == null) {
+            roomRecyclerView.layoutManager = LinearLayoutManager(context)
+            adapter = RoomAdapter(
+                rooms = rooms,
+                isForBooking = true,
+                onRoomSelected = { roomWithTime ->
+                    onRoomSelected(
+                        roomWithTime.room,
+                        roomWithTime.suggestedStartTime.toString(),
+                        roomWithTime.availableHoursFromNow
+                    )
+                }
             )
+            roomRecyclerView.adapter = adapter
+        } else {
+            adapter?.updateRooms(rooms)
         }
     }
 }

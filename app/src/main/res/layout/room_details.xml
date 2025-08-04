@@ -8,7 +8,8 @@
     android:backgroundTint="#FFFFFF"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

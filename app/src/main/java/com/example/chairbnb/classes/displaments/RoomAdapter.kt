@@ -12,7 +12,7 @@ import com.example.chairbnb.classes.bookingRooms.RoomWithAvailableTime
 import com.example.chairbnb.objects.objectsHelper.TimeManager
 
 class RoomAdapter(
-    private val rooms: List<RoomWithAvailableTime>,
+    private var rooms: List<RoomWithAvailableTime>,
     private val isForBooking: Boolean = true,
     private val onBookingCancelConfirmed: (RoomWithAvailableTime) -> Unit = {},
     private val onRoomSelected: (RoomWithAvailableTime) -> Unit = {}
@@ -58,7 +58,7 @@ class RoomAdapter(
             equipmentsTextView.text = room.equipments.joinToString(",")
             itemView.setOnClickListener {
                 if (isForBooking) onRoomSelected(roomWithTime)
-                else showCancelDialog(roomWithTime)
+                else  onBookingCancelConfirmed(roomWithTime)
             }
         }
 
@@ -101,19 +101,23 @@ class RoomAdapter(
             }
         }
 
-        private fun showCancelDialog(roomWithTime: RoomWithAvailableTime) {
-            AlertDialog.Builder(itemView.context)
-                .setTitle("Confirm cancellation")
-                .setMessage("Are you sure you want to cancel this booking?")
-                .setPositiveButton("Yes") { dialog, _ ->
-                    onBookingCancelConfirmed(roomWithTime)
-                    dialog.dismiss()
-                }
-                .setNegativeButton("No") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
+//        private fun showCancelDialog(roomWithTime: RoomWithAvailableTime) {
+//            AlertDialog.Builder(itemView.context)
+//                .setTitle("Confirm cancellation")
+//                .setMessage("Are you sure you want to cancel this booking?")
+//                .setPositiveButton("Yes") { dialog, _ ->
+//                    onBookingCancelConfirmed(roomWithTime)
+//                    dialog.dismiss()
+//                }
+//                .setNegativeButton("No") { dialog, _ ->
+//                    dialog.dismiss()
+//                }
+//                .show()
+//        }
 
+    }
+    fun updateRooms(newRooms: List<RoomWithAvailableTime>) {
+        rooms = newRooms
+        notifyDataSetChanged()
     }
 }

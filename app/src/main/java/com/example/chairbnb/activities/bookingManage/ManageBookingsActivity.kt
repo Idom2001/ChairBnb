@@ -1,6 +1,7 @@
 package com.example.chairbnb.activities.bookingManage
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ import com.example.chairbnb.objects.dataBase.BookingStoreManager
 import com.example.chairbnb.objects.dataBase.FireStoreManager
 import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
+import com.google.firebase.auth.FirebaseAuth
 
 class ManageBookingsActivity : AppCompatActivity() {
     private val bookingsList = mutableListOf<Booking>()
@@ -95,12 +97,14 @@ class ManageBookingsActivity : AppCompatActivity() {
     }
 
     private fun onRoomClicked(roomWithAvailableTime: RoomWithAvailableTime) {
+        println("Room clicked for cancel: ${roomWithAvailableTime.room.name}")
         val booking = BookingStoreManager.findBookingByRoom(
             roomWithAvailableTime.room.id,
             roomWithAvailableTime.suggestedStartTime,
             bookingsList
         )
         if (booking == null) {
+            println("No booking found for this room")
             return
         }
         AlertDialog.Builder(this)
@@ -113,11 +117,20 @@ class ManageBookingsActivity : AppCompatActivity() {
                 }?"
             )
             .setPositiveButton("Yes") { _, _ ->
+                println("Cancel booking requested for room: ${roomWithAvailableTime.room.name}")
                 BookingStoreManager.cancelBooking(booking, {
+                    println("Cancel booking success callback")
                     Toast.makeText(this, "Booking canceled", Toast.LENGTH_SHORT).show()
                     loadRoomsAndBookings()
-                }, {})
+                }, {
+                        exception ->
+                    Log.e("ManageBookingsActivity", "Cancel booking failed", exception)
+                    Toast.makeText(this, "Cancellation failed: ${exception.message}", Toast.LENGTH_LONG).show()
+                    Log.d("DEBUG", "User UID: ${FirebaseAuth.getInstance().currentUser?.uid}")
+
+                })
             }
+
             .setNegativeButton("No", null)
             .show()
     }
