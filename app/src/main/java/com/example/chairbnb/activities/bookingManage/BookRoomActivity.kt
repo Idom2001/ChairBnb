@@ -1,5 +1,4 @@
 package com.example.chairbnb.activities.bookingManage
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
