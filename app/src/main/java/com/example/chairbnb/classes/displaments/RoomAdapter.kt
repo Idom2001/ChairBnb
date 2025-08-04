@@ -1,6 +1,4 @@
 package com.example.chairbnb.classes.displaments
-
-import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,21 +98,6 @@ class RoomAdapter(
                 roomAvailableTime.text = "Availability unknown"
             }
         }
-
-//        private fun showCancelDialog(roomWithTime: RoomWithAvailableTime) {
-//            AlertDialog.Builder(itemView.context)
-//                .setTitle("Confirm cancellation")
-//                .setMessage("Are you sure you want to cancel this booking?")
-//                .setPositiveButton("Yes") { dialog, _ ->
-//                    onBookingCancelConfirmed(roomWithTime)
-//                    dialog.dismiss()
-//                }
-//                .setNegativeButton("No") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//                .show()
-//        }
-
     }
     fun updateRooms(newRooms: List<RoomWithAvailableTime>) {
         rooms = newRooms
