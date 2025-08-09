@@ -26,15 +26,16 @@ object RoomAvailability {
     }
 
     fun findClosestAvailableDate(rooms: List<Room>, fromDate: String): String? {
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val requestedDate = sdf.parse(fromDate) ?: return null
+        val requestedDate = TimeManager.parseDateOrNull(fromDate) ?: return null
 
-        val allAvailableDates = rooms.flatMap { it.availableDates }.distinct()
+        val allAvailableDates = rooms
+            .flatMap { it.availableDates }
+            .distinct()
+
         val sortedDates = allAvailableDates.mapNotNull {
-            val date = sdf.parse(it)
+            val date = TimeManager.parseDateOrNull(it)
             if (date != null && date.after(requestedDate)) date else null
         }.sorted()
-
-        return sortedDates.firstOrNull()?.let { sdf.format(it) }
+        return sortedDates.firstOrNull()?.let { TimeManager.formatDateToString(it) }
     }
 }

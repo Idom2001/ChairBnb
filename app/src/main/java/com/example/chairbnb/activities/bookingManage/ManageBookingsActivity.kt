@@ -17,7 +17,6 @@ import com.example.chairbnb.objects.dataBase.BookingStoreManager
 import com.example.chairbnb.objects.dataBase.FireStoreManager
 import com.example.chairbnb.objects.objectsHelper.TimeManager
 import com.google.android.material.textview.MaterialTextView
-import com.google.firebase.auth.FirebaseAuth
 
 class ManageBookingsActivity : AppCompatActivity() {
     private val bookingsList = mutableListOf<Booking>()
@@ -89,8 +88,10 @@ class ManageBookingsActivity : AppCompatActivity() {
                     .forEach { expiredBooking ->
                         BookingStoreManager.cancelBooking(expiredBooking, {}, {})
                     }
-            }, onFailure = {})
-        }, onFailure = {})
+            }, onFailure = {showErrorToast()
+            })
+        }, onFailure = {showErrorToast()
+        })
     }
 
     private fun onRoomClicked(roomWithAvailableTime: RoomWithAvailableTime) {
@@ -106,9 +107,7 @@ class ManageBookingsActivity : AppCompatActivity() {
             .setTitle("Cancel Booking")
             .setMessage(
                 "Are you sure you want to cancel the booking for room ${roomWithAvailableTime.room.name} on ${booking.date} at ${
-                    formatHour(
-                        booking.startHour
-                    )
+                    formatHour(booking.startHour)
                 }?"
             )
             .setPositiveButton("Yes") { _, _ ->
@@ -124,5 +123,8 @@ class ManageBookingsActivity : AppCompatActivity() {
 
     private fun formatHour(hour: Int): String {
         return TimeManager.formatTime(hour, 0)
+    }
+    private fun showErrorToast() {
+        Toast.makeText(this, "Booking error, Please try again later.", Toast.LENGTH_SHORT).show()
     }
 }

@@ -12,13 +12,12 @@ data class Room(
     val availableHours: Map<String, List<Pair<Int, Int>>>
 ) {
     fun getAvailableTime(startHour: Double, startMinute: Double, date: String): Double {
-        val startTime = startHour + startMinute / Constants.Hour.MINUETS_IN_HOUR
         val dailyHours = availableHours[date] ?: return Constants.Hour.DEFAULT
+        val startTime = startHour + startMinute / Constants.Hour.MINUETS_IN_HOUR
         for ((start, end) in dailyHours) {
             if (startTime >= start && startTime < end) {
                 return String.format(
-                    "%.2f", minOf(Constants.LibTime.MAX_TIME_ROOM_DOUBLE, end - startTime)
-                ).toDouble()
+                    "%.2f", minOf(Constants.LibTime.MAX_TIME_ROOM_DOUBLE, end - startTime)).toDouble()
             }
         }
         return Constants.Hour.DEFAULT

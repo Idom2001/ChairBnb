@@ -30,7 +30,7 @@ class BookRoomActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_book_room)
         findViews()
-        uploadRoomsFirstTime()
+        loadRooms()
     }
 
     private fun findViews() {
@@ -40,41 +40,38 @@ class BookRoomActivity : AppCompatActivity() {
         roomRecyclerView = findViewById(R.id.roomsRecyclerView)
         probTextView = findViewById(R.id.ProbTextView)
     }
-
-    private fun uploadRoomsFirstTime() {
+    private fun loadRooms() {
         FireStoreManager.getRooms(
             onSuccess = { existingRooms ->
                 if (existingRooms.isNotEmpty()) {
                     rooms = existingRooms
                     displayRooms()
                 } else {
-                    try {
-                        val jsonString =
-                            assets.open("rooms.json").bufferedReader().use { it.readText() }
-                        FireStoreManager.uploadInitialRoomsData(
-                            jsonString,
-                            onSuccess = {
-                                loadRoomsFromFireStore()
-                            },
-                            onFailure = {}
-                        )
-                    } catch (e: Exception) {
-                        Log.e("uploadRoomsFirstTime", "Error reading JSON", e)
-                    }
+                    loadRoomsFromJson()
                 }
             },
-            onFailure = {}
+            onFailure = {
+                showErrorToast()
+            }
         )
     }
 
-    private fun loadRoomsFromFireStore() {
-        FireStoreManager.getRooms(
-            onSuccess = { fetchedRooms ->
-                rooms = fetchedRooms
-                displayRooms()
-            },
-            onFailure = {}
-        )
+    private fun loadRoomsFromJson() {
+        try {
+            val jsonString = assets.open("rooms.json").bufferedReader().use { it.readText() }
+            FireStoreManager.uploadInitialRoomsData(
+                jsonString,
+                onSuccess = {
+                    loadRooms() // after loading json, load rooms from db
+                },
+                onFailure = {
+                    showErrorToast()
+                }
+            )
+        } catch (e: Exception) {
+            Log.e("BookRoomActivity", "Error reading JSON file", e)
+            showErrorToast()
+        }
     }
 
     private fun displayRooms() {
@@ -113,11 +110,14 @@ class BookRoomActivity : AppCompatActivity() {
             hoursCount = hoursCount,
             onSuccess = {
                 Toast.makeText(this, "Room booked successfully!", Toast.LENGTH_SHORT).show()
-                loadRoomsFromFireStore()
+                loadRooms()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             },
-            onFailure = {}
+            onFailure = {showErrorToast()}
         )
+    }
+    private fun showErrorToast() {
+        Toast.makeText(this, "Something went wrong, Please try again later.", Toast.LENGTH_SHORT).show()
     }
 }

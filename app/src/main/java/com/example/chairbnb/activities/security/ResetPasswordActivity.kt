@@ -31,7 +31,8 @@ class ResetPasswordActivity : AppCompatActivity() {
             onSuccess = {
                 Toast.makeText(this, "Email for reset was sent", Toast.LENGTH_LONG).show()
                 finish()
-            }, onFailure = { })
+            }, onFailure = { errorMessage ->
+                Toast.makeText(this, "Error: $errorMessage", Toast.LENGTH_LONG).show()})
     }
 
     private fun findViews() {

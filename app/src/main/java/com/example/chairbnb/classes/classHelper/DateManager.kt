@@ -9,9 +9,8 @@ class DateManager(
     private val context: Context,
     private val dateSetListener: (Int, Int, Int) -> Unit
 ) {
-    private val calendar = android.icu.util.Calendar.getInstance()
+    private val calendar = Calendar.getInstance()
     fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -25,11 +24,11 @@ class DateManager(
     }
 
     fun getDefaultHour(): Int {
-        return calendar.get(android.icu.util.Calendar.HOUR_OF_DAY)
+        return calendar.get(Calendar.HOUR_OF_DAY)
     }
 
     fun getDefaultMinute(): Int {
-        return calendar.get(android.icu.util.Calendar.MINUTE)
+        return calendar.get(Calendar.MINUTE)
     }
 
 }

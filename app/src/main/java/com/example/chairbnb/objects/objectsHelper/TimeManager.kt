@@ -1,5 +1,6 @@
 package com.example.chairbnb.objects.objectsHelper
 
+import android.annotation.SuppressLint
 import com.example.chairbnb.classes.classHelper.Constants
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -12,6 +13,8 @@ import java.util.Locale
 
 object TimeManager {
     private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    @SuppressLint("ConstantLocale")
+    private val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private fun shouldMoveToNextDay(
         selectedDate: String,
         selectedHour: Int,
@@ -41,7 +44,7 @@ object TimeManager {
     }
 
     fun formatTime(hour: Int, minute: Int): String {
-        val h = hour % 24
+        val h = hour % Constants.Hour.HOURS_IN_DAY
         return String.format("%02d:%02d", h, minute)
     }
 
@@ -50,8 +53,7 @@ object TimeManager {
     }
 
     fun getTodayDateString(): String {
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        return sdf.format(Date())
+        return formatDateToString(Date())
     }
 
     fun formatDate(year: Int, month: Int, day: Int): String {
@@ -96,6 +98,19 @@ object TimeManager {
             } catch (e: Exception) {
                 false
             }
+        }
+    }
+
+
+    fun formatDateToString(date: Date): String {
+        return simpleDateFormat.format(date)
+    }
+
+    fun parseDateOrNull(dateStr: String): Date? {
+        return try {
+            simpleDateFormat.parse(dateStr)
+        } catch (e: Exception) {
+            null
         }
     }
 }
